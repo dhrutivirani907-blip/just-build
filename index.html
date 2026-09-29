@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <title>Ads Counter</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #101828, #182c4d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .counter-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+      padding: 35px 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .label {
+      font-size: 15px;
+      color: #b9c4d5;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #adCount {
+      font-size: 60px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 30px;
+    }
+
+    .watch-btn {
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      padding: 17px;
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      background: linear-gradient(135deg, #00c853, #00a844);
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,200,83,0.25);
+      transition: 0.2s;
+    }
+
+    .watch-btn:active {
+      transform: scale(0.97);
+    }
+
+    .watch-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #aebbd0;
+      min-height: 20px;
+    }
+
+    .reset-btn {
+      margin-top: 20px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #9eabc0;
+      padding: 9px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="title">
+      📺 ADS REWARD
+    </div>
+
+    <div class="counter-box">
+
+      <div class="label">
+        Total Ads Watched
+      </div>
+
+      <div id="adCount">
+        0
+      </div>
+
+      <button
+        id="watchBtn"
+        class="watch-btn"
+        onclick="watchAd()"
+      >
+        ▶ WATCH ADS
+      </button>
+
+      <div id="status" class="status">
+        Click the button to watch an ad
+      </div>
+
+      <button
+        class="reset-btn"
+        onclick="resetCount()"
+      >
+        Reset Count
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // ==========================================
+    // AD URL
+    // ==========================================
+
+    const AD_URL =
+      "https://www.profitableratecpmnetwork.com/h2c4my1bx?key=c652d96306553d9d16506b15173c981f";
+
+
+    // ==========================================
+    // SETTINGS
+    // ==========================================
+
+    // User must stay away from this page
+    // for at least this amount of time.
+    const MIN_AD_TIME = 8000;
+
+
+    // ==========================================
+    // VARIABLES
+    // ==========================================
+
+    let adStartTime = 0;
+    let adOpened = false;
+    let counting = false;
+
+
+    // ==========================================
+    // LOAD SAVED COUNT
+    // ==========================================
+
+    let totalAds =
+      parseInt(localStorage.getItem("totalAds") || "0", 10);
+
+    updateCount();
+
+
+    // ==========================================
+    // UPDATE COUNTER
+    // ==========================================
+
+    function updateCount() {
+
+      document.getElementById("adCount").textContent =
+        totalAds.toLocaleString();
+
+    }
+
+
+    // ==========================================
+    // WATCH AD
+    // ==========================================
+
+    function watchAd() {
+
+      if (counting) {
+        return;
+      }
+
+      counting = true;
+      adOpened = true;
+
+      adStartTime = Date.now();
+
+      const btn = document.getElementById("watchBtn");
+      const status = document.getElementById("status");
+
+      btn.disabled = true;
+
+      status.textContent =
+        "⏳ Ad opened... Please wait.";
+
+      /*
+        Open the advertisement in a new tab/window.
+      */
+
+      const adWindow = window.open(
+        AD_URL,
+        "_blank"
+      );
+
+      /*
+        If popup was blocked, allow user to try again.
+      */
+
+      if (!adWindow) {
+
+        counting = false;
+        adOpened = false;
+
+        btn.disabled = false;
+
+        status.textContent =
+          "⚠️ Please allow pop-ups and try again.";
+
+      }
+
+    }
+
+
+    // ==========================================
+    // DETECT USER RETURN
+    // ==========================================
+
+    function checkReturn() {
+
+      if (!adOpened || !counting) {
+        return;
+      }
+
+      const elapsed =
+        Date.now() - adStartTime;
+
+
+      /*
+        Require minimum 8 seconds
+      */
+
+      if (elapsed < MIN_AD_TIME) {
+
+        const remaining =
+          Math.ceil((MIN_AD_TIME - elapsed) / 1000);
+
+        document.getElementById("status").textContent =
+          "⏳ Please wait " + remaining + " more seconds.";
+
+        return;
+
+      }
+
+
+      // ========================================
+      // COUNT +1
+      // ========================================
+
+      totalAds++;
+
+      localStorage.setItem(
+        "totalAds",
+        totalAds
+      );
+
+      updateCount();
+
+
+      document.getElementById("status").textContent =
+        "✅ Ad counted successfully!";
+
+
+      const btn =
+        document.getElementById("watchBtn");
+
+      btn.disabled = false;
+
+
+      // Reset state
+      adOpened = false;
+      counting = false;
+
+    }
+
+
+    // ==========================================
+    // PAGE VISIBILITY
+    // ==========================================
+
+    document.addEventListener(
+      "visibilitychange",
+      function () {
+
+        if (
+          document.visibilityState === "visible"
+        ) {
+
+          checkReturn();
+
+        }
+
+      }
+    );
+
+
+    // ==========================================
+    // PAGE SHOW
+    // ==========================================
+
+    window.addEventListener(
+      "pageshow",
+      function () {
+
+        checkReturn();
+
+      }
+    );
+
+
+    // ==========================================
+    // WINDOW FOCUS
+    // ==========================================
+
+    window.addEventListener(
+      "focus",
+      function () {
+
+        /*
+          Small delay because mobile browsers
+          sometimes fire focus immediately.
+        */
+
+        setTimeout(function () {
+
+          checkReturn();
+
+        }, 300);
+
+      }
+    );
+
+
+    // ==========================================
+    // RESET
+    // ==========================================
+
+    function resetCount() {
+
+      const confirmReset =
+        confirm(
+          "Are you sure you want to reset the ad count?"
+        );
+
+      if (!confirmReset) {
+        return;
+      }
+
+      totalAds = 0;
+
+      localStorage.setItem(
+        "totalAds",
+        "0"
+      );
+
+      updateCount();
+
+      document.getElementById("status").textContent =
+        "Counter reset.";
+
+    }
+
+  </script>
+
+</body>
+</html>
