@@ -1,404 +1,335 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
 
-  <title>Ads Counter</title>
+<title>Ads Counter</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #101828, #182c4d);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      padding: 20px;
-    }
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #101828, #1d3557);
+  color: white;
+}
 
-    .container {
-      width: 100%;
-      max-width: 380px;
-      text-align: center;
-    }
+.container {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
 
-    .title {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 25px;
-    }
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
 
-    .counter-box {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 24px;
-      padding: 35px 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-    }
+.card {
+  padding: 35px 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+}
 
-    .label {
-      font-size: 15px;
-      color: #b9c4d5;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+.label {
+  font-size: 14px;
+  color: #b8c4d6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
 
-    #adCount {
-      font-size: 60px;
-      font-weight: 900;
-      line-height: 1;
-      margin-bottom: 30px;
-    }
+.count {
+  font-size: 64px;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
 
-    .watch-btn {
-      width: 100%;
-      border: none;
-      border-radius: 15px;
-      padding: 17px;
-      font-size: 18px;
-      font-weight: 800;
-      color: white;
-      background: linear-gradient(135deg, #00c853, #00a844);
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,200,83,0.25);
-      transition: 0.2s;
-    }
+.watch-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    .watch-btn:active {
-      transform: scale(0.97);
-    }
+  width: 100%;
+  min-height: 58px;
 
-    .watch-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+  border: 0;
+  border-radius: 15px;
 
-    .status {
-      margin-top: 18px;
-      font-size: 14px;
-      color: #aebbd0;
-      min-height: 20px;
-    }
+  background: #00c853;
+  color: white;
 
-    .reset-btn {
-      margin-top: 20px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #9eabc0;
-      padding: 9px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-  </style>
+  font-size: 18px;
+  font-weight: 800;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.watch-btn:active {
+  transform: scale(.97);
+}
+
+.status {
+  min-height: 22px;
+  margin-top: 18px;
+  font-size: 14px;
+  color: #b8c4d6;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="title">
-      📺 ADS REWARD
+  <div class="title">
+    📺 ADS REWARD
+  </div>
+
+  <div class="card">
+
+    <div class="label">
+      Total Ads Watched
     </div>
 
-    <div class="counter-box">
+    <div
+      id="count"
+      class="count">
+      0
+    </div>
 
-      <div class="label">
-        Total Ads Watched
-      </div>
+    <!-- DIRECT AD LINK -->
+    <a
+      id="watchButton"
+      class="watch-btn"
+      href="https://www.profitableratecpmnetwork.com/h2c4my1bx?key=c652d96306553d9d16506b15173c981f"
+      target="_blank"
+      rel="noopener noreferrer">
 
-      <div id="adCount">
-        0
-      </div>
+      ▶ WATCH ADS
 
-      <button
-        id="watchBtn"
-        class="watch-btn"
-        onclick="watchAd()"
-      >
-        ▶ WATCH ADS
-      </button>
+    </a>
 
-      <div id="status" class="status">
-        Click the button to watch an ad
-      </div>
+    <div
+      id="status"
+      class="status">
 
-      <button
-        class="reset-btn"
-        onclick="resetCount()"
-      >
-        Reset Count
-      </button>
+      Click WATCH ADS to start
 
     </div>
 
   </div>
 
+</div>
 
-  <script>
 
-    // ==========================================
-    // AD URL
-    // ==========================================
+<script>
 
-    const AD_URL =
-      "https://www.profitableratecpmnetwork.com/h2c4my1bx?key=c652d96306553d9d16506b15173c981f";
+/* =========================================
+   SETTINGS
+========================================= */
 
+const MIN_TIME = 8000;
 
-    // ==========================================
-    // SETTINGS
-    // ==========================================
+const STORAGE_COUNT = "ads_total_count";
+const STORAGE_START = "ads_start_time";
 
-    // User must stay away from this page
-    // for at least this amount of time.
-    const MIN_AD_TIME = 8000;
 
+/* =========================================
+   LOAD COUNT
+========================================= */
 
-    // ==========================================
-    // VARIABLES
-    // ==========================================
+let totalAds =
+  parseInt(
+    localStorage.getItem(STORAGE_COUNT) || "0",
+    10
+  );
 
-    let adStartTime = 0;
-    let adOpened = false;
-    let counting = false;
+updateCount();
 
 
-    // ==========================================
-    // LOAD SAVED COUNT
-    // ==========================================
+/* =========================================
+   UPDATE COUNT
+========================================= */
 
-    let totalAds =
-      parseInt(localStorage.getItem("totalAds") || "0", 10);
+function updateCount() {
 
-    updateCount();
+  document.getElementById("count").textContent =
+    totalAds.toLocaleString();
 
+}
 
-    // ==========================================
-    // UPDATE COUNTER
-    // ==========================================
 
-    function updateCount() {
+/* =========================================
+   START AD
+========================================= */
 
-      document.getElementById("adCount").textContent =
-        totalAds.toLocaleString();
+document
+  .getElementById("watchButton")
+  .addEventListener("click", function () {
 
-    }
+    /*
+      Save the exact time when the user
+      clicked WATCH ADS.
+    */
 
-
-    // ==========================================
-    // WATCH AD
-    // ==========================================
-
-    function watchAd() {
-
-      if (counting) {
-        return;
-      }
-
-      counting = true;
-      adOpened = true;
-
-      adStartTime = Date.now();
-
-      const btn = document.getElementById("watchBtn");
-      const status = document.getElementById("status");
-
-      btn.disabled = true;
-
-      status.textContent =
-        "⏳ Ad opened... Please wait.";
-
-      /*
-        Open the advertisement in a new tab/window.
-      */
-
-      const adWindow = window.open(
-        AD_URL,
-        "_blank"
-      );
-
-      /*
-        If popup was blocked, allow user to try again.
-      */
-
-      if (!adWindow) {
-
-        counting = false;
-        adOpened = false;
-
-        btn.disabled = false;
-
-        status.textContent =
-          "⚠️ Please allow pop-ups and try again.";
-
-      }
-
-    }
-
-
-    // ==========================================
-    // DETECT USER RETURN
-    // ==========================================
-
-    function checkReturn() {
-
-      if (!adOpened || !counting) {
-        return;
-      }
-
-      const elapsed =
-        Date.now() - adStartTime;
-
-
-      /*
-        Require minimum 8 seconds
-      */
-
-      if (elapsed < MIN_AD_TIME) {
-
-        const remaining =
-          Math.ceil((MIN_AD_TIME - elapsed) / 1000);
-
-        document.getElementById("status").textContent =
-          "⏳ Please wait " + remaining + " more seconds.";
-
-        return;
-
-      }
-
-
-      // ========================================
-      // COUNT +1
-      // ========================================
-
-      totalAds++;
-
-      localStorage.setItem(
-        "totalAds",
-        totalAds
-      );
-
-      updateCount();
-
-
-      document.getElementById("status").textContent =
-        "✅ Ad counted successfully!";
-
-
-      const btn =
-        document.getElementById("watchBtn");
-
-      btn.disabled = false;
-
-
-      // Reset state
-      adOpened = false;
-      counting = false;
-
-    }
-
-
-    // ==========================================
-    // PAGE VISIBILITY
-    // ==========================================
-
-    document.addEventListener(
-      "visibilitychange",
-      function () {
-
-        if (
-          document.visibilityState === "visible"
-        ) {
-
-          checkReturn();
-
-        }
-
-      }
+    localStorage.setItem(
+      STORAGE_START,
+      Date.now().toString()
     );
 
+    document.getElementById("status").textContent =
+      "⏳ Watching ad...";
 
-    // ==========================================
-    // PAGE SHOW
-    // ==========================================
+  });
 
-    window.addEventListener(
-      "pageshow",
-      function () {
 
-        checkReturn();
+/* =========================================
+   CHECK RETURN
+========================================= */
 
-      }
+function checkReturn() {
+
+  const start =
+    parseInt(
+      localStorage.getItem(STORAGE_START) || "0",
+      10
     );
 
-
-    // ==========================================
-    // WINDOW FOCUS
-    // ==========================================
-
-    window.addEventListener(
-      "focus",
-      function () {
-
-        /*
-          Small delay because mobile browsers
-          sometimes fire focus immediately.
-        */
-
-        setTimeout(function () {
-
-          checkReturn();
-
-        }, 300);
-
-      }
-    );
+  if (!start) {
+    return;
+  }
 
 
-    // ==========================================
-    // RESET
-    // ==========================================
+  const elapsed =
+    Date.now() - start;
 
-    function resetCount() {
 
-      const confirmReset =
-        confirm(
-          "Are you sure you want to reset the ad count?"
-        );
+  /*
+    User must be away for at least 8 seconds.
+  */
 
-      if (!confirmReset) {
-        return;
-      }
+  if (elapsed < MIN_TIME) {
 
-      totalAds = 0;
+    document.getElementById("status").textContent =
+      "⏳ Please stay on the ad for 8 seconds.";
 
-      localStorage.setItem(
-        "totalAds",
-        "0"
+    return;
+
+  }
+
+
+  /*
+    COUNT +1
+  */
+
+  totalAds++;
+
+  localStorage.setItem(
+    STORAGE_COUNT,
+    totalAds.toString()
+  );
+
+
+  /*
+    Remove pending ad.
+  */
+
+  localStorage.removeItem(
+    STORAGE_START
+  );
+
+
+  updateCount();
+
+
+  document.getElementById("status").textContent =
+    "✅ Ad counted!";
+
+
+}
+
+
+/* =========================================
+   WHEN USER RETURNS TO PAGE
+========================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function () {
+
+    if (
+      document.visibilityState === "visible"
+    ) {
+
+      setTimeout(
+        checkReturn,
+        500
       );
-
-      updateCount();
-
-      document.getElementById("status").textContent =
-        "Counter reset.";
 
     }
 
-  </script>
+  }
+);
+
+
+/* =========================================
+   PAGE SHOW
+========================================= */
+
+window.addEventListener(
+  "pageshow",
+  function () {
+
+    setTimeout(
+      checkReturn,
+      500
+    );
+
+  }
+);
+
+
+/* =========================================
+   WINDOW FOCUS
+========================================= */
+
+window.addEventListener(
+  "focus",
+  function () {
+
+    setTimeout(
+      checkReturn,
+      500
+    );
+
+  }
+);
+
+</script>
 
 </body>
 </html>
+```
